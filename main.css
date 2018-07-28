@@ -11,8 +11,9 @@ h1,h2,h3,h4,h5,h6{ font-weight: normal; }
 .topNavBar.sticky{background: white; padding: 10px 0px; z-index: 1; box-shadow: 0 0 10px grey; color: #3d4451 }
 .topNavBar-inner{ padding: 0px 16px; }
 
+.topNavBar nav { padding-top: 5px; }
 .topNavBar nav > ul { list-style:none;  margin: 0;  padding: 0; }
-.topNavBar nav > ul > li { float: left;  margin-left: 17px; margin-right: 17px; }
+.topNavBar nav > ul > li { float: left;  margin-left: 17px; margin-right: 17px; position: relative; }
 .topNavBar nav > ul > li >a {
     font-size: 14.5px;
     color: inherit;
@@ -24,12 +25,59 @@ h1,h2,h3,h4,h5,h6{ font-weight: normal; }
     padding-bottom: 5px;
 
     display: block;
+
+    position: relative;
 }
 
-.topNavBar nav { padding-top: 5px; }
-.topNavBar nav > ul > li >a:hover { border-bottom: 3px solid #ee7730d4; }
+.topNavBar nav > ul > li.active > a::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top:  100%;
+    left: 0;
+    width: 100%;
+    background:  #ec7730;
+    height: 3px;  
+    animation: menuSlide 0.3s;
+}
+
+@keyframes menuSlide{            /* 为<a>底部之前hover效果的出现动画  */
+    0%{ width: 0%; }
+    100%{ width: 100%; }
+}
+
+.topNavBar .submenu{            /* 子菜单样式 */
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: white;
+    color:#3d4451;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+.topNavBar li.active >.submenu{
+    display: block;
+    animation: submenuSlide 0.3s;
+}
+
+@keyframes submenuSlide{         /* 子菜单的动画效果，margin-right是以父元素的宽度为标准 */
+    0%{
+        margin-right: 100%;
+    }
+    100%{
+        margin-right: 0%;
+    }
+}
+
+.topNavBar .submenu > li{
+    white-space: nowrap;     /* 不分行 */
+    padding: 5px 10px;
+}
+
+
 .topNavBar .logo{ font-size: 24px; font-family: "Arial Black"; padding-top: 3px; padding-bottom: 4px; }
-.topNavBar .logo .rs{ margin-right: 4px; color: #ee7730d4; }
+.topNavBar .logo .rs{ margin-right: 4px; color: #ec7730; }
 .topNavBar .logo .card{ color: #969696; }
 .banner{ height: 515px; background-image: url(./img/1.png); background-size: cover; }
 .banner .mask{ height: 515px; /* background-color: rgba(0, 0, 0, 0.123); */ }
@@ -42,7 +90,7 @@ h1,h2,h3,h4,h5,h6{ font-weight: normal; }
 }
 
 .userCard .welcome{
-    background: #ee7730d4;
+    background: #ec7730;
     color: white;
     display: inline-block;
     padding: 4px 16px;
@@ -60,7 +108,7 @@ h1,h2,h3,h4,h5,h6{ font-weight: normal; }
     border: 10px solid transparent;
     width: 0px;
     height: 0px;
-    border-left-color: #ee7730d4;
+    border-left-color: #ec7730;
     border-top-width: 0px;
     position: absolute;
     top: 100%;
@@ -78,7 +126,7 @@ h1,h2,h3,h4,h5,h6{ font-weight: normal; }
 
 .userCard .text dl dt{ width: 30%; font-weight: bold; }
 .userCard .text dl dd{ width: 70%; color: #9da0a7; }
-.userCard > footer.media{ background: #ee7730d4; text-align: center; }
+.userCard > footer.media{ background: #ec7730; text-align: center; }
 .userCard > footer.media > a {
     display: inline-block;
     width: 40px;
@@ -88,7 +136,7 @@ h1,h2,h3,h4,h5,h6{ font-weight: normal; }
     margin: 16px 16px;
 }
 
-.userCard > footer.media > a:hover{ background: #ee7730d4; }
+.userCard > footer.media > a:hover{ background: #ec7730; }
 .userCard svg{ width: 30px; height: 30px; fill: white; vertical-align: top; }
 
 body > main{ margin-top: -340px; }
@@ -138,7 +186,7 @@ section.skills > ol > li{
 
 section.skills > ol > li:nth-child(even){ float: right; }
 section.skills .progressBar{ height: 3px; background: #ee77302b; border-radius: 2px; margin:4px 0 40px 0; }
-section.skills .progressBar > .progress{ height: 100%; width: 70%; background: #ee7730d4; border-radius: 2px; }
+section.skills .progressBar > .progress{ height: 100%; width: 70%; background: #ec7730; border-radius: 2px; }
 section.portfolio{ text-align: center; margin-bottom: 100px; }
 section.portfolio > nav > ol { margin: 0 auto; display: inline-block; vertical-align: top; cursor: pointer; }
 section.portfolio > nav > ol > li{ float: left; margin-left: 40px; }
@@ -151,7 +199,7 @@ section.portfolio > nav > ol > li:nth-child(1){ margin-left: 0; }
 
 section.portfolio > nav{ display: inline-block; vertical-align: top; margin-top: 32px; }
 section.portfolio > nav .bar{ height: 5px; background: white; margin-top: 5px; margin-bottom: 32px; border-radius: 2px; }
-section.portfolio > nav .bar-inner{ height: 100%; background: #ee7730d4; border-radius: 2px; transition: all 0.3s; }
+section.portfolio > nav .bar-inner{ height: 100%; background: #ec7730; border-radius: 2px; transition: all 0.3s; }
 section.portfolio > nav .bar.state-1 .bar-inner{ margin-left: 0; width: 34px; }
 section.portfolio > nav .bar.state-2 .bar-inner{ margin-left: 65px; width: 50px; }
 section.portfolio > nav .bar.state-3 .bar-inner{ margin-left: 140px; width: 105px; }
