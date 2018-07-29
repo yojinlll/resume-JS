@@ -56,19 +56,11 @@ h1,h2,h3,h4,h5,h6{ font-weight: normal; }
     box-shadow: 0 0 5px rgba(0,0,0,0.5);
 }
 
-.topNavBar li.active >.submenu{
-    display: block;
-    animation: submenuSlide 0.3s;
-}
+.topNavBar li.active >.submenu{ display: block; animation: submenuSlide 0.3s; }
 
 @keyframes submenuSlide{         /* 子菜单的动画效果，margin-right是以父元素的宽度为标准 */
-    0%{
-        margin-right: 100%;
-    }
-    100%{
-        margin-right: 0%;
-    }
-}
+    0%{ margin-right: 100%; }
+    100%{ margin-right: 0%; }}
 
 .topNavBar .submenu > li{
     white-space: nowrap;     /* 不分行 */
