@@ -95,7 +95,7 @@
 		<div class="mask"></div>
 	</div>
 	<main	>
-		<div id="siteAbout" class="userCard">
+		<div data-x id="siteAbout" class="userCard">
 			<div class="pictureAndText clearfix">
 				<div class="picture">
 					<img src="./img/avatar.png" width="299px" height="347px" alt="头像">
@@ -150,7 +150,7 @@
 
 	</main>
 	
-	<section id="siteSkills" class="skills">
+	<section data-x id="siteSkills" class="skills">
 		<h2>技能</h2>
 		<ol class="clearfix">
 			<li>
@@ -204,7 +204,7 @@
 		</ol>
 	</section>
 
-	<section id="siteWorks" class="portfolio">
+	<section data-x id="siteWorks" class="portfolio">
 		<h2>作品集合</h2>
 		<nav>
 			<ol class="clearfix">
@@ -231,7 +231,7 @@
 
 
 		<div class="works" style="height: 597px;">
-			<div class="big" style="top= 0; left: 27px;">
+			<div class="big" style="top:0%; left: 27px;">
 				<img src="./img/1.1.jpeg" alt="作品" style="height: 597px; width: 576px;">
 			</div>
 			<div class="small"	style="top: 0; left: 638px;">
@@ -247,23 +247,42 @@
 
 	<script>
 
-		//动画：loading效果
+	//动画：loading效果
 		setTimeout(function(){
 			siteWelcome.classList.remove('active')
 		},1350)
 
-		//动画：导航栏滚动效果
-		window.onscroll = function(xxx){
-			console.log(window.scrollY)
-
-			if(window.scrollY > 0){
+	//动画：导航栏滚动效果
+		window.onscroll = function(x){
+			if(window.scrollY > 0){                      //只要大于零，便增加sticky，否则移除
 				topNavBar.classList.add('sticky')
 			}else{
 				topNavBar.classList.remove('sticky')
 			}
+			// console.log(window.scrollY)
+
+		//动画：只要滑动至相应的内容块处，<menu> 上的 <a> 会对应的出现hover效果
+			let specialTags = document.querySelectorAll('[data-x]')               //获取所有特殊标签						
+			let minIndex = 0
+			for(let i=0; i<specialTags.length; i++){
+				if(Math.abs(specialTags[i].offsetTop - window.scrollY) < Math.abs(specialTags[minIndex].offsetTop - window.scrollY)){
+					minIndex = i
+				}
+			}
+
+			let id = specialTags[minIndex].id
+			// console.log(id)                      //遇事不决console.log
+			let	a = document.querySelector('a[href="#'+ id +'"]')
+			let li = a.parentNode
+			let brothersAndMe = li.parentNode.children
+			for(let i=0; i<brothersAndMe.length; i++){
+				brothersAndMe[i].classList.remove('highlight')							//先移除所有的active状态，再为li添加active，否则会全部都添加active
+			}
+			li.classList.add('highlight')
 		}
 
-		//动画：hover二级元素菜单
+
+	//动画：hover滑动效果 && hover二级元素菜单
 		let liTags = document.querySelectorAll('nav.menu > ul > li')
 		for(let i=0; i<liTags.length; i++){
 			liTags[i].onmouseenter = function(x){
@@ -274,7 +293,7 @@
 			}
 		}
 		
-		//动画：滚动到指定元素内容
+	//动画：滚动到指定元素内容
 		let aTags = document.querySelectorAll('nav.menu > ul > li > a')
 		// console.log(aTags)
 		for(let i=0; i<aTags.length; i++){         //遍历（访问）
