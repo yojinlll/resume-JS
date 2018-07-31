@@ -7,6 +7,22 @@ h1,h2,h3,h4,h5,h6{ font-weight: normal; }
 
 .clearfix::after{ content: ''; display: block; clear: both; }
 
+[data-x].offset{
+    transform: translateY(100px);
+}
+[data-x]{
+    transform: translateY(0);
+    transition: all 0.5s;
+}
+
+/* @keyframes slideUp{                      功能暂时用不上了；
+    0%{
+        transform: translateY(-80px);
+    }
+    100%{
+        transform: translateY(0);
+    }
+} */
 
 .topNavBar{ position: fixed; top: 0; left: 0; width: 100%; transition: all 1s; padding: 20px 0px; color: #b7b7b7}
 .topNavBar.sticky{background: white; padding: 10px 0px; z-index: 1; box-shadow: 0 0 10px grey; color: #3d4451 }
@@ -180,8 +196,13 @@ section.skills > ol > li{
 }
 
 section.skills > ol > li:nth-child(even){ float: right; }
-section.skills .progressBar{ height: 3px; background: #ee77302b; border-radius: 2px; margin:4px 0 40px 0; }
-section.skills .progressBar > .progress{ height: 100%; width: 70%; background: #ec7730; border-radius: 2px; }
+section.skills .progressBar{ height: 3px; background: #ee77302b; border-radius: 2px; margin:4px 0 40px 0; overflow: hidden;}
+section.skills .progressBar > .progress{ height: 100%; width: 0; background: #ec7730; border-radius: 2px; transform: translateX(0); transition: all 1s;}
+section.skills.offset .progress{
+    transform: translate(-100%);
+}
+
+
 section.portfolio{ text-align: center; margin-bottom: 100px; }
 section.portfolio > nav > ol { margin: 0 auto; display: inline-block; vertical-align: top; cursor: pointer; }
 section.portfolio > nav > ol > li{ float: left; margin-left: 40px; }

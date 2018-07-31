@@ -158,7 +158,7 @@
 					HTML 5 &amp; CSS 3
 				</h3>
 				<div class="progressBar">
-					<div class="progress"></div>
+					<div class="progress" style="width: 30%"></div>
 				</div>
 			</li>
 			<li>
@@ -166,7 +166,7 @@
 					JavaScript
 				</h3>
 				<div class="progressBar">
-					<div class="progress"></div>
+					<div class="progress"style="width: 80%"></div>
 				</div>
 			</li>
 			<li>
@@ -174,7 +174,7 @@
 					jQuery
 				</h3>
 				<div class="progressBar">
-					<div class="progress"></div>
+					<div class="progress" style="width: 70%"></div>
 				</div>
 			</li>
 			<li>
@@ -182,7 +182,7 @@
 					Vue
 				</h3>
 				<div class="progressBar">
-					<div class="progress"></div>
+					<div class="progress" style="width: 45%"></div>
 				</div>
 			</li>
 			<li>
@@ -190,7 +190,7 @@
 					React
 				</h3>
 				<div class="progressBar">
-					<div class="progress"></div>
+					<div class="progress" style="width: 60%"></div>
 				</div>
 			</li>
 			<li>
@@ -198,7 +198,7 @@
 					HTTP
 				</h3>
 				<div class="progressBar">
-					<div class="progress"></div>
+					<div class="progress" style="width: 90%"></div>
 				</div>
 			</li>
 		</ol>
@@ -244,13 +244,27 @@
 
 	</section>	
 
+	<!-- 方法一：缓动效果的库页面 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.1.1/Tween.min.js"></script>	 
 
 	<script>
 
 	//动画：loading效果
-		setTimeout(function(){
+		// setTimeout(function(){
 			siteWelcome.classList.remove('active')
-		},1350)
+		// },1350)
+		
+		let specialTags = document.querySelectorAll('[data-x]')               //遍历所有特殊标签						
+			for(let i=0; i<specialTags.length; i++){
+				specialTags[i].classList.add('offset')
+			}
+
+
+	//在进入页面时移除最近元素的offset，体现页面上拉的效果
+		setTimeout(function(){
+			findCloest()
+		}, 100)
+
 
 	//动画：导航栏滚动效果
 		window.onscroll = function(x){
@@ -260,16 +274,21 @@
 				topNavBar.classList.remove('sticky')
 			}
 			// console.log(window.scrollY)
+			findCloest()
+		}
 
-		//动画：只要滑动至相应的内容块处，<menu> 上的 <a> 会对应的出现hover效果
-			let specialTags = document.querySelectorAll('[data-x]')               //获取所有特殊标签						
+
+	//动画：只要滑动至相应的内容块处，<menu> 上的 <a> 会对应的出现hover效果
+		function findCloest(){
+			let specialTags = document.querySelectorAll('[data-x]')               //遍历所有特殊标签						
 			let minIndex = 0
 			for(let i=0; i<specialTags.length; i++){
 				if(Math.abs(specialTags[i].offsetTop - window.scrollY) < Math.abs(specialTags[minIndex].offsetTop - window.scrollY)){
 					minIndex = i
 				}
 			}
-
+			
+			specialTags[minIndex].classList.remove('offset')		//移除offset
 			let id = specialTags[minIndex].id
 			// console.log(id)                      //遇事不决console.log
 			let	a = document.querySelector('a[href="#'+ id +'"]')
@@ -279,6 +298,7 @@
 				brothersAndMe[i].classList.remove('highlight')							//先移除所有的active状态，再为li添加active，否则会全部都添加active
 			}
 			li.classList.add('highlight')
+
 		}
 
 
@@ -293,36 +313,73 @@
 			}
 		}
 		
+
 	//动画：滚动到指定元素内容
+
+		//方法一：缓动效果
 		let aTags = document.querySelectorAll('nav.menu > ul > li > a')
-		// console.log(aTags)
-		for(let i=0; i<aTags.length; i++){         //遍历（访问）
+		function animate(time) {
+			requestAnimationFrame(animate);
+			TWEEN.update(time);
+		}
+		requestAnimationFrame(animate);
+
+		for(let i=0; i<aTags.length; i++){
 			aTags[i].onclick = function(x){
-				x.preventDefault()              //阻止<a href='#'>的默认操作
-				let a = x.currentTarget
-				let	href = a.getAttribute('href')     // 不用console.log(a.href)，会获取http协议
-				let element = document.querySelector(href)
-				let top = element.offsetTop           //算出该元素于视口的距离
-				//以上四句代码其实是套娃模式，可以缩成一句代码，以下：
-				//let top = document.querySelector(x.currentTarget.getAttribute('href')).offsetTop 
+			x.preventDefault()
+			let a = x.currentTarget
+			let href = a.getAttribute('href') //'#siteAbout'
+			let element = document.querySelector(href)
+			let top = element.offsetTop
 
-				let n = 25		//一共动多少次（25帧）
-				let duration = 500 / n 		//多少时间动一次
-				let currentTop = window.scrollY                  //为什么一定要声明这个变量
-				let targetTop = top - 80
-				let distance = ( targetTop - currentTop ) / n
-				let i = 0
-				let id = setInterval( () => {
-					if( i === n ){
-						window.clearInterval(id)
-						return
-					}
-					i = i + 1
-					window.scrollTo( 0, currentTop + distance * i )
-				}, duration)
-
+			let currentTop = window.scrollY
+			let targetTop = top - 80
+			let s = targetTop - currentTop // 路程
+			var coords = { y: currentTop}; // 起始位置
+			var t = Math.abs((s/100)*300) // 时间
+			if(t>500){ t = 500 }
+			var tween = new TWEEN.Tween(coords) // 起始位置
+				.to({ y: targetTop}, t) // 结束位置 和 时间
+				.easing(TWEEN.Easing.Cubic.InOut) // 缓动类型
+				.onUpdate(function() {
+				// coords.y 已经变了
+				window.scrollTo(0,coords.y) // 如何更新界面
+			})
+				.start(); // 开始缓动
 			}
 		}
+
+
+		// //方法二：		
+		// let aTags = document.querySelectorAll('nav.menu > ul > li > a')
+		// // console.log(aTags)
+		// for(let i=0; i<aTags.length; i++){         //遍历（访问）
+		// 	aTags[i].onclick = function(x){
+		// 		x.preventDefault()              //阻止<a href='#'>的默认操作
+		// 		let a = x.currentTarget
+		// 		let	href = a.getAttribute('href')     // 不用console.log(a.href)，会获取http协议
+		// 		let element = document.querySelector(href)
+		// 		let top = element.offsetTop           //算出该元素于视口的距离
+		// 		//以上四句代码其实是套娃模式，可以缩成一句代码，以下：
+		// 		//let top = document.querySelector(x.currentTarget.getAttribute('href')).offsetTop 
+
+		// 		let n = 25		//一共动多少次（25帧）
+		// 		let duration = 500 / n 		//多少时间动一次
+		// 		let currentTop = window.scrollY                  //为什么一定要声明这个变量
+		// 		let targetTop = top - 80
+		// 		let distance = ( targetTop - currentTop ) / n
+		// 		let i = 0
+		// 		let id = setInterval( () => {
+		// 			if( i === n ){
+		// 				window.clearInterval(id)
+		// 				return
+		// 			}
+		// 			i = i + 1
+		// 			window.scrollTo( 0, currentTop + distance * i )
+		// 		}, duration)
+
+		// 	}
+		// }
 
 	</script>
 </body>
