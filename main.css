@@ -79,7 +79,10 @@ h1,h2,h3,h4,h5,h6{ font-weight: normal; }
 
 @keyframes submenuSlide{         /* 子菜单的动画效果，margin-right是以父元素的宽度为标准 */
     0%{ margin-right: 100%; }
-    100%{ margin-right: 0%; }}
+    100%{ margin-right: 0%; }
+}
+
+.icon { width: 1em; height: 1em; vertical-align: -0.15em; fill: currentColor; overflow: hidden; }
 
 .topNavBar .submenu > li{
     white-space: nowrap;     /* 不分行 */
