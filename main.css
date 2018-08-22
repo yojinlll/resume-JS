@@ -181,7 +181,7 @@ body > main .downloadResume:hover{ box-shadow: 0px 4px 13px 0px rgba(0,0,0,0.3);
 section.skills,
 section.portfolio{ max-width: 930px; margin-left: auto; margin-right: auto; margin-top: 60px; }
 section.skills h2,
-section.portfolio h2{ text-align: center; color: #3d4451; font-size: 34px; line-height: 1.2; font-weight: 600; }
+section.portfolio h2{ text-align: center; color: #3d4451; font-size: 34px; line-height: 1.2; font-weight: 600; margin-bottom: 50px; }
 section.skills h3{ font-size: 14px; line-height: 1.1; padding-right: 40px; }
 section.skills > ol{ background: white; box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.171); padding: 42px 50px 10px 50px; margin-top: 30px; }
 section.skills > ol > li{
@@ -202,29 +202,10 @@ section.skills.offset .progress{
     transform: translate(-100%);
 }
 
+section.portfolio{ text-align: center; margin-bottom: 100px; max-width: 900px; }
+section.portfolio .swiper-container { height: 501px; width: 668px; }
+section.portfolio .swiper-slide{ background: white; }
+section.portfolio .swiper-button-prev,
+section.portfolio .swiper-button-next{ width: 64px; height: 64px; border-radius: 50%; }
 
-section.portfolio{ text-align: center; margin-bottom: 100px; }
-section.portfolio > nav > ol { margin: 0 auto; display: inline-block; vertical-align: top; cursor: pointer; }
-section.portfolio > nav > ol > li{ float: left; margin-left: 40px; }
-section.portfolio > nav > ol > li:nth-child(1){ margin-left: 0; }
 
-/* section.portfolio > nav{
-    display: inline-block;
-    vertical-align: top;
-} */
-
-section.portfolio > nav{ display: inline-block; vertical-align: top; margin-top: 32px; }
-section.portfolio > nav .bar{ height: 5px; background: white; margin-top: 5px; margin-bottom: 32px; border-radius: 2px; }
-section.portfolio > nav .bar-inner{ height: 100%; background: #ec7730; border-radius: 2px; transition: all 0.3s; }
-section.portfolio > nav .bar.state-1 .bar-inner{ margin-left: 0; width: 34px; }
-section.portfolio > nav .bar.state-2 .bar-inner{ margin-left: 65px; width: 50px; }
-section.portfolio > nav .bar.state-3 .bar-inner{ margin-left: 140px; width: 105px; }
-section.portfolio .works{ position: relative; }
-section.portfolio .works img{ vertical-align: top; }
-
-section.portfolio .works  > .big,
-section.portfolio .works  > .small{
-    position: absolute;
-    box-shadow: 5px 3px 20px 0px rgba(0, 0, 0, 0.171);
-    /* z-index:-1; */
-}
