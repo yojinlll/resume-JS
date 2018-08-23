@@ -24,7 +24,7 @@ h1,h2,h3,h4,h5,h6{ font-weight: normal; }
     }
 } */
 
-.topNavBar{ position: fixed; top: 0; left: 0; width: 100%; transition: all 1s; padding: 20px 0px; color: #b7b7b7}
+.topNavBar{ position: fixed; top: 0; left: 0; width: 100%; transition: all 1s; padding: 20px 0px; color: #b7b7b7; }
 .topNavBar.sticky{background: white; padding: 10px 0px; z-index: 1; box-shadow: 0 0 10px grey; color: #3d4451 }
 .topNavBar-inner{ padding: 0px 16px; }
 
